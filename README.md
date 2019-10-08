@@ -1,0 +1,1 @@
+# conf-aws-secrets-manager
