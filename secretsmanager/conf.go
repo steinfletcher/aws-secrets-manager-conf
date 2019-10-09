@@ -1,4 +1,4 @@
-package asm
+package secretsmanager
 
 import (
 	"github.com/aws/aws-sdk-go/aws"

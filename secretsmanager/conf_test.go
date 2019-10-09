@@ -1,14 +1,15 @@
-package asm_test
+package secretsmanager_test
 
 import (
+	"github.com/steinfletcher/conf-aws-secrets-manager/secretsmanager"
+	"testing"
+
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/secretsmanager"
+	awsSecretsManager "github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/golang/mock/gomock"
 	"github.com/steinfletcher/conf"
-	"github.com/steinfletcher/conf-aws-secrets-manager/asm"
 	"github.com/steinfletcher/conf-aws-secrets-manager/mocks"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 type config struct {
@@ -21,9 +22,9 @@ func TestParse_PlaintextSecret(t *testing.T) {
 	secretsManager := mocks.NewMockSecretsManager(ctrl)
 	plaintextSecretPayload := "myPlaintextSecretValue"
 	secretsManager.EXPECT().
-		GetSecretValue(&secretsmanager.GetSecretValueInput{SecretId: aws.String("/my-group/my-secret")}).
-		Return(&secretsmanager.GetSecretValueOutput{SecretString: &plaintextSecretPayload}, nil)
-	provider := asm.NewSecretsManagerProvider(secretsManager)
+		GetSecretValue(&awsSecretsManager.GetSecretValueInput{SecretId: aws.String("/my-group/my-secret")}).
+		Return(&awsSecretsManager.GetSecretValueOutput{SecretString: &plaintextSecretPayload}, nil)
+	provider := secretsmanager.NewSecretsManagerProvider(secretsManager)
 	var cfg config
 
 	err := conf.Parse(&cfg, provider)
