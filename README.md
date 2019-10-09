@@ -1,3 +1,3 @@
-[![Build Status](https://travis-ci.org/steinfletcher/conf-aws-secrets-manager.svg?branch=master)](https://travis-ci.org/steinfletcher/conf-aws-secrets-manager)
+[![Build Status](https://travis-ci.org/steinfletcher/aws-secrets-manager-conf.svg?branch=master)](https://travis-ci.org/steinfletcher/aws-secrets-manager-conf)
 
 # aws-secrets-manager-conf
