@@ -13,7 +13,7 @@ lint:
 	./bin/golangci-lint run --tests=false --enable-all --disable=lll ./...
 .PHONY: lint
 
-ci: lint build test
+ci: lint test
 .PHONY: ci
 
 .DEFAULT_GOAL := ci

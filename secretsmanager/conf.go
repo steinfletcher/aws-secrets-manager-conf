@@ -2,13 +2,14 @@ package secretsmanager
 
 import (
 	"fmt"
+	"reflect"
+	"strings"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/aws/aws-sdk-go/service/secretsmanager/secretsmanageriface"
 	"github.com/steinfletcher/conf"
-	"reflect"
-	"strings"
 )
 
 type asmConf struct {
@@ -23,6 +24,7 @@ func (o asmConf) Provide(field reflect.StructField) (string, error) {
 	key, opts := parseTag(field, "secret")
 	defaultValue, _ := parseTag(field, "secretDefault")
 	isRequired := hasOption(opts, "required")
+
 	return getValue(o.secretsManager, key, defaultValue, isRequired)
 }
 
@@ -32,6 +34,7 @@ func hasOption(opts []string, name string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -39,6 +42,7 @@ func hasOption(opts []string, name string) bool {
 func parseTag(field reflect.StructField, name string) (string, []string) {
 	tagValue := field.Tag.Get(name)
 	opts := strings.Split(tagValue, ",")
+
 	return opts[0], opts[1:]
 }
 
@@ -48,7 +52,7 @@ func getValue(secretsManager secretsmanageriface.SecretsManagerAPI, key, default
 		return "", err
 	}
 
-	if value == "" && defaultValue == "" && isRequired == true {
+	if value == "" && defaultValue == "" && isRequired {
 		return "", fmt.Errorf(`conf: required variable %q is not set`, key)
 	}
 
@@ -64,13 +68,16 @@ func fetchSecret(secretsManager secretsmanageriface.SecretsManagerAPI, key strin
 		SecretId: aws.String(key),
 	}
 	output, err := secretsManager.GetSecretValue(input)
+
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok {
 			if awsErr.Code() == secretsmanager.ErrCodeResourceNotFoundException {
 				return "", nil
 			}
 		}
+
 		return "", err
 	}
+
 	return *output.SecretString, nil
 }

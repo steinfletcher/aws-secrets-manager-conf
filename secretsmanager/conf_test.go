@@ -2,9 +2,10 @@ package secretsmanager_test
 
 import (
 	"errors"
+	"testing"
+
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/steinfletcher/conf-aws-secrets-manager/secretsmanager"
-	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
 	awsSecretsManager "github.com/aws/aws-sdk-go/service/secretsmanager"
@@ -57,16 +58,16 @@ func TestParse(t *testing.T) {
 			},
 		},
 		"error if required and not present": {
-			config: &configWithRequired{},
-			awsErr: awserr.New(awsSecretsManager.ErrCodeResourceNotFoundException, "", nil),
-			expected: &configWithRequired{},
+			config:      &configWithRequired{},
+			awsErr:      awserr.New(awsSecretsManager.ErrCodeResourceNotFoundException, "", nil),
+			expected:    &configWithRequired{},
 			expectedErr: errors.New(`conf: required variable "/my-group/my-secret" is not set`),
 		},
 		"aws error": {
-			config: &configWithDefault{},
-			secret: "",
-			awsErr: awserr.New(awsSecretsManager.ErrCodeInternalServiceError, "", nil),
-			expected: &configWithDefault{},
+			config:      &configWithDefault{},
+			secret:      "",
+			awsErr:      awserr.New(awsSecretsManager.ErrCodeInternalServiceError, "", nil),
+			expected:    &configWithDefault{},
 			expectedErr: awserr.New(awsSecretsManager.ErrCodeInternalServiceError, "", nil),
 		},
 	}
