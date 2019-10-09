@@ -5,13 +5,13 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/steinfletcher/conf-aws-secrets-manager/secretsmanager"
+	"github.com/steinfletcher/aws-secrets-manager-conf/secretsmanager"
 
 	"github.com/aws/aws-sdk-go/aws"
 	awsSecretsManager "github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/golang/mock/gomock"
+	"github.com/steinfletcher/aws-secrets-manager-conf/mocks"
 	"github.com/steinfletcher/conf"
-	"github.com/steinfletcher/conf-aws-secrets-manager/mocks"
 	"github.com/stretchr/testify/assert"
 )
 

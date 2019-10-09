@@ -1,4 +1,4 @@
-module github.com/steinfletcher/conf-aws-secrets-manager
+module github.com/steinfletcher/aws-secrets-manager-conf
 
 go 1.13
 
