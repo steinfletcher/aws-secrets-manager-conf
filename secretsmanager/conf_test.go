@@ -19,12 +19,25 @@ type config struct {
 	SecretPlaintext string `secret:"/my-group/my-secret"`
 }
 
+type configBool struct {
+	SecretBool bool `secret:"/my-group/my-secret"`
+}
+
 type configWithRequired struct {
 	SecretPlaintext string `secret:"/my-group/my-secret,required"`
 }
 
 type configWithDefault struct {
 	SecretPlaintext string `secret:"/my-group/my-secret" secretDefault:"12345"`
+}
+
+type configWithJSON struct {
+	SecretJSON jsonSecret `secret:"/my-group/my-secret"`
+}
+
+type jsonSecret struct {
+	ApiKey    string `json:"api_key"`
+	IsEnabled bool   `json:"is_enabled"`
 }
 
 func TestParse(t *testing.T) {
@@ -40,6 +53,23 @@ func TestParse(t *testing.T) {
 			secret: "myPlaintextSecretValue",
 			expected: &config{
 				SecretPlaintext: "myPlaintextSecretValue",
+			},
+		},
+		"success with bool": {
+			config: &configBool{},
+			secret: "true",
+			expected: &configBool{
+				SecretBool: true,
+			},
+		},
+		"success with json payload": {
+			config: &configWithJSON{},
+			secret: `{"api_key": "12345", "is_enabled": false}`,
+			expected: &configWithJSON{
+				SecretJSON: jsonSecret{
+					ApiKey:    "12345",
+					IsEnabled: false,
+				},
 			},
 		},
 		"default value": {

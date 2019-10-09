@@ -11,6 +11,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/steinfletcher/conf v0.1.6 h1:jd/AUrc47vrGGe2xgoENa0L/nUP7A8JyQIiTcDWOZfs=
 github.com/steinfletcher/conf v0.1.6/go.mod h1:adU9ng/Z/4uDLFtAiEkOvF1Ib7rOnu7yjQZTnsEgHDw=
+github.com/steinfletcher/conf v0.1.7 h1:wWkDhmx369n+eAxA6ezsfdpc8OHTRf99Max1pZSdWFs=
+github.com/steinfletcher/conf v0.1.7/go.mod h1:adU9ng/Z/4uDLFtAiEkOvF1Ib7rOnu7yjQZTnsEgHDw=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
