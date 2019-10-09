@@ -1,7 +1,9 @@
 package secretsmanager
 
 import (
+	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/aws/aws-sdk-go/service/secretsmanager/secretsmanageriface"
 	"github.com/steinfletcher/conf"
@@ -42,19 +44,19 @@ func parseTag(field reflect.StructField, name string) (string, []string) {
 
 func getValue(secretsManager secretsmanageriface.SecretsManagerAPI, key, defaultValue string, isRequired bool) (string, error) {
 	value, err := fetchSecret(secretsManager, key)
-	if err == nil {
-		return value, nil
+	if err != nil {
+		return "", err
 	}
 
-	if defaultValue != "" {
-		return defaultValue, nil
+	if value == "" && defaultValue == "" && isRequired == true {
+		return "", fmt.Errorf(`conf: required variable %q is not set`, key)
 	}
 
-	if !isRequired {
-		return "", nil
+	if value == "" && defaultValue != "" {
+		value = defaultValue
 	}
 
-	return "", err
+	return value, nil
 }
 
 func fetchSecret(secretsManager secretsmanageriface.SecretsManagerAPI, key string) (string, error) {
@@ -63,6 +65,11 @@ func fetchSecret(secretsManager secretsmanageriface.SecretsManagerAPI, key strin
 	}
 	output, err := secretsManager.GetSecretValue(input)
 	if err != nil {
+		if awsErr, ok := err.(awserr.Error); ok {
+			if awsErr.Code() == secretsmanager.ErrCodeResourceNotFoundException {
+				return "", nil
+			}
+		}
 		return "", err
 	}
 	return *output.SecretString, nil
