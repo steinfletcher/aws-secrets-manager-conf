@@ -109,7 +109,7 @@ func TestParse(t *testing.T) {
 			secretsManager.EXPECT().
 				GetSecretValue(&awsSecretsManager.GetSecretValueInput{SecretId: aws.String("/my-group/my-secret")}).
 				Return(&awsSecretsManager.GetSecretValueOutput{SecretString: &test.secret}, test.awsErr)
-			provider := secretsmanager.NewSecretsManagerProvider(secretsManager)
+			provider := secretsmanager.NewProvider(secretsManager)
 
 			err := conf.Parse(test.config, provider)
 

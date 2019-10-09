@@ -16,7 +16,7 @@ type asmConf struct {
 	secretsManager secretsmanageriface.SecretsManagerAPI
 }
 
-func NewSecretsManagerProvider(secretsManager secretsmanageriface.SecretsManagerAPI) conf.Provider {
+func NewProvider(secretsManager secretsmanageriface.SecretsManagerAPI) conf.Provider {
 	return asmConf{secretsManager: secretsManager}
 }
 
