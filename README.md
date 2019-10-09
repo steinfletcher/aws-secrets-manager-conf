@@ -1,1 +1,1 @@
-# conf-aws-secrets-manager
+# aws-secrets-manager-conf
