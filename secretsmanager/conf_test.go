@@ -16,6 +16,7 @@ import (
 )
 
 type config struct {
+	OtherField      string
 	SecretPlaintext string `secret:"/my-group/my-secret"`
 }
 

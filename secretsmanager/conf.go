@@ -22,6 +22,10 @@ func NewProvider(secretsManager secretsmanageriface.SecretsManagerAPI) conf.Prov
 
 func (o asmConf) Provide(field reflect.StructField) (string, error) {
 	key, opts := parseTag(field, "secret")
+	if key == "" {
+		return "", nil
+	}
+
 	defaultValue, _ := parseTag(field, "secretDefault")
 	isRequired := hasOption(opts, "required")
 
