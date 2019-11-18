@@ -17,3 +17,16 @@ Then parse the configuration with [conf](https://github.com/steinfletcher/conf)
 ```go
 err := conf.Parse(test.config, provider)
 ```
+
+Use the `secret` struct tag to resolve secrets
+
+```go
+type Config struct {
+	// github.com/caarlos0/env properties
+	Home         string        `env:"HOME"`
+	Port         int           `env:"PORT" envDefault:"3000"`
+
+	// secrets manager properties
+	MySecret     string        `secret:"/my_secret,required"`
+}
+```
