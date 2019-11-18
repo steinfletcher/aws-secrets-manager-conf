@@ -6,7 +6,7 @@ Provides AWS Secrets Manager support for [conf](https://github.com/steinfletcher
 
 ## Usage
 
-Initialize the secrets manager provider by passing the AWS session
+Initialize the secrets manager provider by passing the AWS secrets manager instance
 
 ```go
 provider := secretsmanager.NewProvider(secretsManager)
