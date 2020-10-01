@@ -10,6 +10,7 @@ Initialize the secrets manager provider by passing the AWS secrets manager insta
 
 ```go
 import "github.com/steinfletcher/aws-secrets-manager-conf/secretsmanager"
+import awsSecretsManager "github.com/aws/aws-sdk-go/service/secretsmanager"
 
 ...
 
