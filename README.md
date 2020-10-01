@@ -14,7 +14,7 @@ import awsSecretsManager "github.com/aws/aws-sdk-go/service/secretsmanager"
 
 ...
 
-provider := secretsmanager.NewProvider(secretsManager)
+provider := secretsmanager.NewProvider(awsSecretsManager.New(session.New()))
 ```
 
 Then parse the configuration with [conf](https://github.com/steinfletcher/conf)
