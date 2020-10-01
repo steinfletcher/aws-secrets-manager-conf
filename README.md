@@ -9,6 +9,10 @@ Provides AWS Secrets Manager support for [conf](https://github.com/steinfletcher
 Initialize the secrets manager provider by passing the AWS secrets manager instance
 
 ```go
+import "github.com/steinfletcher/aws-secrets-manager-conf/secretsmanager"
+
+...
+
 provider := secretsmanager.NewProvider(secretsManager)
 ```
 
